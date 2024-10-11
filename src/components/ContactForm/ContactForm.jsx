@@ -11,6 +11,8 @@ import 'flag-icon-css/css/flag-icons.css';
 import { validationContactSchema } from '../../helpers/contactSchema';
 import styles from './ContactForm.module.css';
 import React from 'react';
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
 const formatPhoneNumber = (value) => {
   const allowedCodes = ['+38', '+1', '+49', '+48', '+33'];
@@ -65,16 +67,20 @@ const formatPhoneNumber = (value) => {
   return value; 
 };
 
-export default function ContactForm({ addContact }) {
+export default function ContactForm() {
+  const dispatch = useDispatch();
+
   const nameFieldId = useId();
   const numberFieldId = useId();
 
   const handleSubmit = (values, actions) => {
-    addContact({
-      id: nanoid(),
-      name: values.name,
-      number: values.number,
-    });
+    dispatch(
+      addContact({
+        id: nanoid(),
+        name: values.name,
+        number: values.number,
+      })
+    );
     actions.resetForm();
   };
 

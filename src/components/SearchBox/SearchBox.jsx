@@ -1,19 +1,24 @@
 import { useId } from "react";
 import { FaSistrix } from 'react-icons/fa';
 import styles from "./SearchBox.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { changeNameFilter, changeNumberFilter, selectNameFilter, selectNumberFilter } from "../../redux/filtersSlice";
 
-export default function SearchBox({ filterByName, setFilterByName, filterByNumber, setFilterByNumber }) {
+export default function SearchBox() {
+  const dispatch = useDispatch();
+  
+  const filterByName = useSelector(selectNameFilter);
+  const filterByNumber = useSelector(selectNumberFilter);
+
   const nameSearchId = useId();
   const numberSearchId = useId();
 
   const handleNameSearch = (event) => {
-    setFilterByName(event.target.value);
-    setFilterByNumber(""); 
+    dispatch(changeNameFilter(event.target.value));
   };
 
   const handleNumberSearch = (event) => {
-    setFilterByNumber(event.target.value);
-    setFilterByName(""); 
+    dispatch(changeNumberFilter(event.target.value));
   };
 
   return (
@@ -25,8 +30,8 @@ export default function SearchBox({ filterByName, setFilterByName, filterByNumbe
             type="search"
             name="searchName"
             placeholder="Search by name"
-            value={filterByName}
-            onChange={handleNameSearch}
+            value={filterByName} 
+            onChange={handleNameSearch} 
           />
           <FaSistrix className={styles.iconSearch} />
         </div>
@@ -40,7 +45,7 @@ export default function SearchBox({ filterByName, setFilterByName, filterByNumbe
             type="search"
             name="searchNumber"
             placeholder="Search by number"
-            value={filterByNumber}
+            value={filterByNumber} 
             onChange={handleNumberSearch}
           />
           <FaSistrix className={styles.iconSearch} />
