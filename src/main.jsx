@@ -6,7 +6,7 @@ import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import "./styles/variables.css";
 import "./styles/reset.css";
-import "./styles/tooltip.css"
+import "./styles/tooltip.css";
 import "modern-normalize";
 
 createRoot(document.getElementById('root')).render(
